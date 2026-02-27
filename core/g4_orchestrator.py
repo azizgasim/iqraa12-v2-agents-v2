@@ -3,31 +3,31 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional, TYPE_CHECKING
 
-from core.context import ExecutionContext
-from core.decision import DecisionStatus
-from core.exceptions import GateDeniedError, PolicyViolationError, BudgetExceededError, SafetyViolationError
-from core.lifecycle import LifecyclePhase
-from governance.audit_engine import AuditEngine
-from governance.budget_engine import BudgetEngine
-from governance.policy_engine import PolicyEngine
-from governance.gates.base import GateBase
-from execution.model_router import ModelRouter
-from execution.tool_runner import ToolRunner
-from execution.sandbox import Sandbox
-from execution.job_manager import JobManager
+from .context import ExecutionContext
+from .decision import DecisionStatus
+from .exceptions import GateDeniedError, PolicyViolationError, BudgetExceededError, SafetyViolationError
+from .lifecycle import LifecyclePhase
+from ..governance.audit_engine import AuditEngine
+from ..governance.budget_engine import BudgetEngine
+from ..governance.policy_engine import PolicyEngine
+from ..governance.gates.base import GateBase
+from ..execution.model_router import ModelRouter
+from ..execution.tool_runner import ToolRunner
+from ..execution.sandbox import Sandbox
+from ..execution.job_manager import JobManager
 
-from agents.research_agent import ResearchAgent
-from agents.analysis_agent import AnalysisAgent
-from agents.writing_agent import WritingAgent
-from agents.reviewer_agent import ReviewerAgent
-from core.creative_elite import CreativeNode
+from ..agents.research_agent import ResearchAgent
+from ..agents.analysis_agent import AnalysisAgent
+from ..agents.writing_agent import WritingAgent
+from ..agents.reviewer_agent import ReviewerAgent
+from .creative_elite import CreativeNode
 
 if TYPE_CHECKING:
     from eval.quality_engine import QualityEngine
     from eval.regression import RegressionSuite
     from cost.cost_guardian import CostGuardian
     from cost.roi import ROIEstimator
-    from core.context_enrichment import ContextEnricher
+    from .context_enrichment import ContextEnricher
 
 
 @dataclass

@@ -5,7 +5,7 @@ import uuid
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional
 
-from core.lifecycle import LifecycleState
+from .lifecycle import LifecycleState
 
 
 @dataclass
