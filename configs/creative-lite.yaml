@@ -1,0 +1,5 @@
+name: creative-lite
+max_tokens: 4000
+time_limit_sec: 1800
+memory_access: [working, long_term]
+interrupts: blocked

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://iqraa-agentic-platform/schemas/memory.schema.json",
+  "title": "Memory",
+  "type": "object",
+  "properties": {
+    "memory_id": { "type": "string" },
+    "content_hash": { "type": "string" },
+    "source": { "type": "string" },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "created_at": { "type": "string", "format": "date-time" },
+    "deprecated": { "type": "boolean" }
+  },
+  "required": [
+    "memory_id",
+    "content_hash",
+    "source",
+    "confidence",
+    "created_at",
+    "deprecated"
+  ],
+  "additionalProperties": false
+}

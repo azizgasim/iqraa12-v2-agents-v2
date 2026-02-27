@@ -1,0 +1,5 @@
+name: analysis-strict
+max_tokens: 2000
+time_limit_sec: 900
+memory_access: [working]
+interrupts: allowed

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://iqraa-agentic-platform/schemas/decision.schema.json",
+  "title": "Decision",
+  "type": "object",
+  "properties": {
+    "decision_id": { "type": "string" },
+    "request_id": { "type": "string" },
+    "gate": { "type": "integer" },
+    "verdict": {
+      "type": "string",
+      "enum": ["PASS", "REJECT", "REVIEW"]
+    },
+    "reason": { "type": "string" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "hash": { "type": "string" }
+  },
+  "required": [
+    "decision_id",
+    "request_id",
+    "gate",
+    "verdict",
+    "created_at",
+    "hash"
+  ],
+  "additionalProperties": false
+}

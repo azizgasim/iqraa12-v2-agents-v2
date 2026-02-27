@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://iqraa-agentic-platform/schemas/policy.schema.json",
+  "title": "Policy",
+  "type": "object",
+  "properties": {
+    "policy_id": { "type": "string" },
+    "scope": { "type": "string" },
+    "rule": { "type": "object" },
+    "active": { "type": "boolean" },
+    "version": { "type": "string" }
+  },
+  "required": [
+    "policy_id",
+    "scope",
+    "rule",
+    "active",
+    "version"
+  ],
+  "additionalProperties": false
+}

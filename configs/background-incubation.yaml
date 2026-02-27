@@ -1,0 +1,5 @@
+name: background-incubation
+max_tokens: 800
+time_limit_sec: 3600
+memory_access: [long_term]
+interrupts: none

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://iqraa-agentic-platform/schemas/audit.schema.json",
+  "title": "Audit",
+  "type": "object",
+  "properties": {
+    "audit_id": { "type": "string" },
+    "decision_id": { "type": "string" },
+    "event_type": { "type": "string" },
+    "payload_hash": { "type": "string" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "signature": { "type": "string" }
+  },
+  "required": [
+    "audit_id",
+    "decision_id",
+    "event_type",
+    "payload_hash",
+    "timestamp",
+    "signature"
+  ],
+  "additionalProperties": false
+}
