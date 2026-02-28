@@ -65,13 +65,13 @@ class SmartTextAnalysisAgent(BaseAgent):
     async def act(self, plan: dict, run_ctx: UnifiedRunContext) -> dict[str, Any]:
         if plan["mode"] == "llm":
             return await self._act_llm(plan, run_ctx)
-        return self._act_rules(plan, run_ctx)
+        return await self._act_rules(plan, run_ctx)
 
     async def _act_llm(self, plan: dict, run_ctx: UnifiedRunContext) -> dict[str, Any]:
         prompt = EXTRACTION_PROMPT.replace("{text}", plan["raw_text"])
         resp = await self.llm.complete(prompt=prompt, system="Extract claims as JSON only.", budget=run_ctx.budget, model=self.model)
         if not resp.success:
-            return self._act_rules(plan, run_ctx)
+            return await self._act_rules(plan, run_ctx)
         try:
             text = resp.text.strip()
             if text.startswith("```"):
@@ -79,7 +79,7 @@ class SmartTextAnalysisAgent(BaseAgent):
             data = json.loads(text)
             raw_claims = data.get("claims", [])
         except (json.JSONDecodeError, KeyError):
-            return self._act_rules(plan, run_ctx)
+            return await self._act_rules(plan, run_ctx)
         evidences = []
         claims = []
         for i, rc in enumerate(raw_claims):
@@ -90,10 +90,8 @@ class SmartTextAnalysisAgent(BaseAgent):
             claims.append(Claim(text=rc.get("text", span_data["text_canonical"]), evidence_ids=[ev.evidence_id], confidence=rc.get("confidence",0.7), scope={"type": rc.get("type","unknown"), "method": "llm"}))
         return {"output": {"claims_count": len(claims), "claims": [c.model_dump() for c in claims], "method": "llm", "llm_cost": resp.cost_usd}, "evidence": evidences, "cost_usd": resp.cost_usd}
 
-    def _act_rules(self, plan: dict, run_ctx: UnifiedRunContext) -> dict[str, Any]:
+    async def _act_rules(self, plan: dict, run_ctx: UnifiedRunContext) -> dict[str, Any]:
         from agents.agt01_text_analysis import TextAnalysisAgent
-        import asyncio
         fallback = TextAnalysisAgent()
-        loop = asyncio.get_event_loop()
-        result = loop.run_until_complete(fallback.run(run_ctx, {"text": plan["raw_text"], "source_id": plan["source_id"]}))
+        result = await fallback.run(run_ctx, {"text": plan["raw_text"], "source_id": plan["source_id"]})
         return {"output": {**result.output, "method": "rules"}, "evidence": result.evidence, "cost_usd": 0.0}
